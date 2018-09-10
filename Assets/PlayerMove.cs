@@ -27,10 +27,10 @@ public class PlayerMove : MonoBehaviour {
             Flip();
         } else if (axisX < 0 && facingRight) {
             Flip();
+		
         }
 
-        grounded = Physics2D.OverlapArea(new Vector2(transform.position.x - (collider2d.size.x / 2), transform.position.y - 0.05f), new Vector2(transform.position.x + (collider2d.size.x / 2), transform.position.y - 0.06f), groundLayers);
-
+      
         animator.SetFloat("HorizontalSpeed", axisX);
         animator.SetFloat("VerticalSpeed", Input.GetAxis("Vertical"));
         animator.SetBool("Grounded", grounded);
@@ -39,8 +39,11 @@ public class PlayerMove : MonoBehaviour {
 
     void FixedUpdate()
     {
+	    
         axisX = Input.GetAxis("Horizontal");
-
+	grounded = Physics2D.OverlapArea(new Vector2(transform.position.x - (collider2d.size.x / 2), transform.position.y - 0.05f), new Vector2(transform.position.x + (collider2d.size.x / 2), transform.position.y - 0.06f), groundLayers);
+	//Raycast2D hit = Physics2D.Raycast(transform.position, -Vector2.down);
+	    
         if (axisX > 0f)
         {
             rigidBody.velocity = new Vector2(axisX * speed, rigidBody.velocity.y);
@@ -54,7 +57,7 @@ public class PlayerMove : MonoBehaviour {
             rigidBody.velocity = new Vector2(0, rigidBody.velocity.y);
         }
 
-        if (Input.GetButtonDown("Jump") && grounded)
+        if (Input.GetButtonDown("Jump") && grounded) //for RayCast grounded should be changed to hit.collider != null
         {
             rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpPower);
         }
