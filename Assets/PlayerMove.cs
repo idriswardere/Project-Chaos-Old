@@ -31,7 +31,6 @@ public class PlayerMove : MonoBehaviour {
             Flip();
 		
         }
-
       
         animator.SetFloat("HorizontalSpeed", axisX);
         animator.SetFloat("VerticalSpeed", Input.GetAxis("Vertical"));
@@ -43,7 +42,6 @@ public class PlayerMove : MonoBehaviour {
     {
 
         axisX = Input.GetAxis("Horizontal");
-	//Raycast2D hit = Physics2D.Raycast(transform.position, -Vector2.down);
 	    
         if (axisX > 0f)
         {
@@ -58,9 +56,9 @@ public class PlayerMove : MonoBehaviour {
             rigidBody.velocity = new Vector2(0, rigidBody.velocity.y);
         }
 
-        if (Input.GetButtonDown("Jump") && grounded) //for RayCast grounded should be changed to hit.collider != null
+        if (Input.GetButtonDown("Jump") && grounded)
         {
-            rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpPower);
+            rigidBody.AddForce(new Vector2(rigidBody.velocity.x, jumpPower), ForceMode2D.Impulse);
         }
 
 
