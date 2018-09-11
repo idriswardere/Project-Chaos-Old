@@ -23,6 +23,8 @@ public class PlayerMove : MonoBehaviour {
 	
 	void Update () {
 
+        grounded = Physics2D.OverlapArea(new Vector2(transform.position.x - (collider2d.size.x / 2), transform.position.y - 0.05f), new Vector2(transform.position.x + (collider2d.size.x / 2), transform.position.y - 0.06f), groundLayers);
+
         if (axisX > 0 && !facingRight) {
             Flip();
         } else if (axisX < 0 && facingRight) {
@@ -39,9 +41,8 @@ public class PlayerMove : MonoBehaviour {
 
     void FixedUpdate()
     {
-	    
+
         axisX = Input.GetAxis("Horizontal");
-	grounded = Physics2D.OverlapArea(new Vector2(transform.position.x - (collider2d.size.x / 2), transform.position.y - 0.05f), new Vector2(transform.position.x + (collider2d.size.x / 2), transform.position.y - 0.06f), groundLayers);
 	//Raycast2D hit = Physics2D.Raycast(transform.position, -Vector2.down);
 	    
         if (axisX > 0f)
